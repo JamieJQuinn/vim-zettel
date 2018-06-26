@@ -41,7 +41,8 @@ function! s:wiki_search(line)
   " insert the filename and title into the current buffer
   " ToDo: make the format of inserted link configurable
   let wikiname = <sid>get_wiki_file(filename)
-  execute 'normal a'. wikiname  . "|" . title
+  let link= zettel#vimwiki#format_link(wikiname, title)
+  execute 'normal a'. link
 endfunction
 
 function! s:wiki_yank_name()
