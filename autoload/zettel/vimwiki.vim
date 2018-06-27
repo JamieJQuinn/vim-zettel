@@ -17,6 +17,8 @@ endfunction
 function! zettel#vimwiki#template(title, date)
   if vimwiki#vars#get_wikilocal('syntax') ==? 'markdown'
     call append(line("1"), "---")
+    call append(line("1"), "  - ")
+    call append(line("1"), "tags: ")
     call append(line("1"), "date: " . a:date)
     call append(line("1"), "title: ". a:title)
     call append(line("1"), "---")
