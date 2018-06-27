@@ -32,7 +32,11 @@ endfunction
 
 " get clean wiki name from a filename
 function! s:get_wiki_file(filename)
-  return expand("%:t:r")
+  " the filename is separated by : from rest of the line
+  let parts =  split(a:filename,'\.')
+  " we need to remove the extension
+  let wikiname = parts[0]
+  return wikiname
 endfunction
 
 function! s:wiki_search(line)
