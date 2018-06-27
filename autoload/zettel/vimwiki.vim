@@ -70,6 +70,13 @@ function! zettel#vimwiki#zettel_new_selected()
   call zettel#vimwiki#zettel_new(title)
 endfunction
 
+" Open zettel from fzf line
+function! zettel#vimwiki#zettel_open(line)
+  let filename = split(a:line,":")[0]
+  let wikiname = split(filename,'\.')[0]
+  call vimwiki#base#open_link(':e ', wikiname)
+endfunction
+
 " make new zettel from a file. the file contents will be copied to a new
 " zettel, the original file contents will be replaced with the zettel filename
 " use temporary file if you want to keep the original file

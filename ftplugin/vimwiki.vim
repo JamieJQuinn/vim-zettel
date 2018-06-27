@@ -64,6 +64,19 @@ command! -bang -nargs=* ZettelSearch call fzf#vim#ag(<q-args>,
       \'dir':g:zettel_dir,
       \'options':'--exact'})
 
+command! -bang -nargs=* ZettelOpenTitles call fzf#vim#ag("title",
+      \'--skip-vcs-ignores', {
+      \'down': '~40%',
+      \'sink':function('zettel#vimwiki#zettel_open'),
+      \'dir':g:zettel_dir,
+      \'options':'--exact'})
+
+command! -bang -nargs=* ZettelOpenSearch call fzf#vim#ag(<q-args>, 
+      \'--skip-vcs-ignores', {
+      \'down': '~40%',
+      \'sink':function('zettel#vimwiki#zettel_open'),
+      \'dir':g:zettel_dir,
+      \'options':'--exact'})
 
 command! -bang -nargs=* ZettelNew call zettel#vimwiki#zettel_new(<q-args>)
 
@@ -74,13 +87,15 @@ if !exists('g:zettel_default_mappings')
 endif
 
 nnoremap <silent> <Plug>ZettelSearchMap :ZettelSearch<cr>
+nnoremap <silent> <Plug>ZettelOpenTitlesMap :ZettelOpenTitles<cr>
+nnoremap <silent> <Plug>ZettelOpenSearchMap :ZettelOpenSearch<cr>
 nnoremap <silent> <Plug>ZettelYankNameMap :ZettelYankName<cr> 
 xnoremap <silent> <Plug>ZettelNewSelectedMap :call zettel#vimwiki#zettel_new_selected()<CR>
 
 if g:zettel_default_mappings==1
-  " inoremap [[ [[<esc>:ZettelSearch<CR>
-  imap <silent> [[ [[<esc><Plug>ZettelSearchMap
+  imap <silent> [[ <esc><Plug>ZettelSearchMap
   nmap T <Plug>ZettelYankNameMap
-  " xnoremap z :call zettel#vimwiki#zettel_new_selected()<CR>
+  nmap <C-P> <Plug>ZettelOpenTitlesMap
+  nmap <C-f> <Plug>ZettelOpenSearchMap
   xmap z <Plug>ZettelNewSelectedMap
 endif
